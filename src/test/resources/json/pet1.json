@@ -1,0 +1,16 @@
+{
+    "id": 394539101,
+    "category": {
+      "id": 1,
+      "name": "cachorro"
+    },
+    "name": "Pipoca",
+    "photoUrls": [],
+    "tags": [
+      {
+        "id": 9,
+        "name": "vacinado"
+      }
+    ],
+    "status": "available"
+  }
