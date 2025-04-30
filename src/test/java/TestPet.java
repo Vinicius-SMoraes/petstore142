@@ -51,10 +51,11 @@ public class TestPet {
         .then()                                                             // Então 
             .log().all()                                                    // Mostre tudo no retorno
             .statusCode(200)                             // Verifique se o status code é = 200
-            .body("name", is("Pipoca"))                          // verifique se o nome do cachorro é pipoca
+            .body("name", is(petName))                                 // verifique se o nome do cachorro é pipoca
             .body("id", is(petId))                                     // Verifique qual o código do Pet 
-            .body("category.name", is("cachorro"))               // Verifique se é cachorro 
-            .body("tags[0].name", is("vacinado"))                // Verifique se está vacinado 
+            .body("category.name", is(categoryName))                   // Verifique se é cachorro 
+            .body("tags[0].name", is(tagName))                         // Verifique se está vacinado
+            .body("status", is(status[0]))                             // Verifique o status do animal
         ;                                                                   // Fim do given 
     }
 
