@@ -65,10 +65,6 @@ public class TestPet {
         // Entrada - petId esta definido no nivel da classe 
         // Saídas / Resultados esperados
 
-        String petName = "Pipoca";
-        String categoryName = "cachorro";
-        String tagName = "vacinado";
-
         given()
             .contentType(ct)
             .log().all()
@@ -84,6 +80,7 @@ public class TestPet {
             .body("id", is(petId))
             .body("category.name", is(categoryName))
             .body("tags[0].name", is(tagName))
+            .body("status", is(status[0]))
         ; // Fim do given
     }
 
@@ -107,10 +104,11 @@ public class TestPet {
         .then() //Verifica
             .log().all()
             .statusCode(200)
-            .body("name", is("Pipoca"))
+            .body("name", is(petName))
             .body("id", is(petId))
-            .body("category.name", is("cachorro"))
-            .body("status", is("sold"))
+            .body("category.name", is(categoryName))
+            .body("tags[0].name", is(tagName))
+            .body("status", is(status[1]))
         ;
 
     }
