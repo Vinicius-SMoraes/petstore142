@@ -85,20 +85,20 @@ public class TestPet {
     }
 
     @Test
-    public void testePutPet()throws IOException{
+    public void testPutPet()throws IOException{
         // Configura 
         // Executa 
         // Verifica
 
-
+        // Configura
         String jsonBody = lerArquivoJson("src/test/resources/json/pet2.json"); //Configura
 
-        given() // Executa
+        given() 
             .contentType(ct)
             .log().all()
             .body(jsonBody)
 
-        .when()
+        .when() // Executa
             .put(uriPet)
 
         .then() //Verifica
@@ -110,7 +110,31 @@ public class TestPet {
             .body("tags[0].name", is(tagName))
             .body("status", is(status[1]))
         ;
+    }
 
+    @Test
+    public void testDeletePet(){
+        // Configura 
+        // Executa 
+        // Verifica
+
+        // Configuração
+        given()
+            .contentType(ct)
+            .log().all()
+
+        .when() // Executa
+            .delete(uriPet + "/" + petId)
+
+        .then() // Verifica
+            .log().all()
+            .statusCode(200)
+            .body("code", is(200))
+            .body("type", is("unknown"))
+            .body("message", is(String.valueOf(petId)))
+
+        
+        ;
     }
 
 }
