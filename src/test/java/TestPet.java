@@ -10,6 +10,7 @@ import io.restassured.response.Response; // Classe resposta do RestAssured
 
 
 import static io.restassured.RestAssured.given; // Função Given 
+import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.*;
 
 // 2 - Classes
@@ -57,9 +58,30 @@ public class TestPet {
     @Test
     public void testGetPet(){
         // Configura 
-        // Entrada 
-        
+        // Entrada - petId esta definido no nivel da classe 
+        // Saídas / Resultados esperados
 
+        String petName = "Pipoca";
+        String categoryName = "cachorro";
+        String tagName = "vacinado";
+
+        given()
+            .contentType(ct)
+            .log().all()
+            // Quando é get ou delete não tem a parte do body
+        // Executa 
+        .when()
+            .get(uriPet + "/" + petId) // Aqui, estamos montando o Endpoint da URI junstamente com o petId
+        // Valida 
+        .then()
+            .log().all()
+            .statusCode(200)
+            .body("name", is(petName))
+            .body("id", is(petId))
+            .body("category.name", is(categoryName))
+            .body("tags[0].name", is(tagName))
+
+        ;
 
     }
 
