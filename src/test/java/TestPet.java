@@ -1,20 +1,16 @@
 // 1 - Bibliotecas
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import static io.restassured.RestAssured.given; // Função Given 
+import static org.hamcrest.Matchers.is;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
- 
-import io.restassured.response.Response; // Classe resposta do RestAssured
 
-
-import static io.restassured.RestAssured.given; // Função Given 
-import static io.restassured.RestAssured.when;
-import static org.hamcrest.Matchers.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 // 2 - Classes
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
