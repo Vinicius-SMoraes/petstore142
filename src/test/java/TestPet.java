@@ -19,7 +19,10 @@ public class TestPet {
     static String ct = "application/json"; // Content type da request
     static String uriPet = "https://petstore.swagger.io/v2/pet"; // Base de base + o endpoint do User 
     static int petId = 394539101;
-
+    String petName = "Pipoca";
+    String categoryName = "cachorro";
+    String tagName = "vacinado";
+    String[] status = {"available","sold"};
 
     //2.2 funções e metodos 
     //2.2.1 Funções e métodos comuns / uteis 
@@ -71,7 +74,7 @@ public class TestPet {
             // Quando é get ou delete não tem a parte do body
         // Executa 
         .when()
-            .get(uriPet + "/" + petId) // Aqui, estamos montando o Endpoint da URI junstamente com o petId
+            .get(uriPet + "/" + petId) // Aqui, estamos montando o Endpoint da URI juntamente com o petId
         // Valida 
         .then()
             .log().all()
@@ -80,7 +83,33 @@ public class TestPet {
             .body("id", is(petId))
             .body("category.name", is(categoryName))
             .body("tags[0].name", is(tagName))
+        ; // Fim do given
+    }
 
+    @Test
+    public void testePutPet()throws IOException{
+        // Configura 
+        // Executa 
+        // Verifica
+
+
+        String jsonBody = lerArquivoJson("src/test/resources/json/pet2.json"); //Configura
+
+        given() // Executa
+            .contentType(ct)
+            .log().all()
+            .body(jsonBody)
+
+        .when()
+            .put(uriPet)
+
+        .then() //Verifica
+            .log().all()
+            .statusCode(200)
+            .body("name", is("Pipoca"))
+            .body("id", is(petId))
+            .body("category.name", is("cachorro"))
+            .body("status", is("sold"))
         ;
 
     }
