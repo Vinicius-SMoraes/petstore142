@@ -1,6 +1,9 @@
 // 1 - Bibliotecas
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,6 +17,7 @@ import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.*;
 
 // 2 - Classes
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestPet {
     //2.1 atributos 
     static String ct = "application/json"; // Content type da request
@@ -33,7 +37,7 @@ public class TestPet {
     }
 
     // 2.2.2 Métodos de teste
-    @Test
+    @Test @Order(1)
     public void testPostPet() throws IOException{
         // Carregar os dados do arquivo Json do pet
        
@@ -59,7 +63,7 @@ public class TestPet {
         ;                                                                   // Fim do given 
     }
 
-    @Test
+    @Test @Order(2)
     public void testGetPet(){
         // Configura 
         // Entrada - petId esta definido no nivel da classe 
@@ -84,7 +88,7 @@ public class TestPet {
         ; // Fim do given
     }
 
-    @Test
+    @Test @Order(3)
     public void testPutPet()throws IOException{
         // Configura 
         // Executa 
@@ -112,7 +116,7 @@ public class TestPet {
         ;
     }
 
-    @Test
+    @Test @Order(4)
     public void testDeletePet(){
         // Configura 
         // Executa 
