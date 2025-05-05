@@ -11,6 +11,9 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.params.ParameterizedTest;
+
+
 
 // 2 - Classes
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -68,6 +71,7 @@ public class TestPet {
         given()
             .contentType(ct)
             .log().all()
+            .header("","api_key: " + TestUser.testLogin())
             // Quando é get ou delete não tem a parte do body
         // Executa 
         .when()
@@ -133,8 +137,15 @@ public class TestPet {
             .body("type", is("unknown"))
             .body("message", is(String.valueOf(petId)))
 
-        
         ;
+    }
+
+    // Data driven Testing (DDT) / Teste direcionado por dados / Teste com massa
+    // Teste com Json parametrizado 
+
+    @ParameterizedTest
+    public void testComMassa(){
+
     }
 
 }
