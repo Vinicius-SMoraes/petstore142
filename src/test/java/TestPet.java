@@ -18,6 +18,8 @@ import com.google.gson.Gson;
 
 
 
+
+
 // 2 - Classes
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestPet {
@@ -160,11 +162,22 @@ public class TestPet {
 
         //Criar a classe pet para receber os dados do CSV
         Pet pet = new Pet(); //Instancia a classe User
+        Pet.Category category = pet.new Category(); // instanciar a subclasse Category
+        Pet.tag[] tags = new Pet.tag[2];
+        tags[0] = pet.new tag();
+        tags[1] = pet.new tag();
 
-        pet.petId = petId; 
-        pet.petName = petName;
-        pet.categoryId = categoryId;
-        pet.categoryName = categoryName;
+        pet.id = petId; 
+        pet.category = category;
+        pet.name = petName;
+        pet.category.id = categoryId;
+        pet.category.name = categoryName;
+        // pet.photoUrls não precisa ser incluido pois será vazio
+        pet.tags = tags;
+        pet.tags[0].id = 9;
+        pet.tags[0].name = "vacinado";
+        pet.tags[1].id = 8;
+        pet.tags[1].name = "vermifugado";
         pet.status = status1; 
 
         // Criar um Json para o Body a ser enviado a partir da classe Pet e do CSV 
