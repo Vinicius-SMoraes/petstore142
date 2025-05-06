@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+
+import com.google.gson.Gson;
 
 
 
@@ -143,8 +146,49 @@ public class TestPet {
     // Data driven Testing (DDT) / Teste direcionado por dados / Teste com massa
     // Teste com Json parametrizado 
 
-    @ParameterizedTest
-    public void testComMassa(){
+    @ParameterizedTest @Order(5)
+    @CsvFileSource(resources = "/CSV/petMassa.csv", numLinesToSkip = 1, delimiter = ',')
+    public void testPostPetDDT(
+        int petId,
+        String petName,
+        int categoryId,
+        String categoryName,
+        String status1,
+        String status2
+    ) //Fim dos parametros 
+    { // Inicio do código do método testPostPetDDT
+
+        //Criar a classe pet para receber os dados do CSV
+        Pet pet = new Pet(); //Instancia a classe User
+
+        pet.petId = petId; 
+        pet.petName = petName;
+        pet.categoryId = categoryId;
+        pet.categoryName = categoryName;
+        pet.status = status1; 
+
+        // Criar um Json para o Body a ser enviado a partir da classe Pet e do CSV 
+
+        Gson gson = new Gson(); // Instancia a classe Gson como o objeto gson
+        String jsonBody = gson.toJson(pet);
+
+        given()
+            .contentType(ct)
+            .log().all()
+            .body(jsonBody)
+
+        .when()
+            .post(uriPet)
+
+        .then()
+            .log().all()
+            .statusCode(200)
+            .body("id", is(petId))
+            .body("name", is(petName))
+            .body("category.id", is(categoryId))
+            .body("category.name", is(categoryName))
+            .body("status", is(status1))
+        ;
 
     }
 
